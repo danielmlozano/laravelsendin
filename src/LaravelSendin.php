@@ -6,9 +6,44 @@ use Danielmlozano\LaravelSendin\Exceptions\SBException;
 
 class LaravelSendin extends Api
 {
+    /**
+     * Static accesor. Returns a getAccount model instance
+     *
+     * @static
+     * @access public
+     * @return \SendinBlue\Client\Api\AccountApi
+     */
     public static function getAccount()
     {
         return (new LaravelSendin)->_getAccount();
+    }
+
+    /**
+     * Static accesor. Returns a getLists model instance
+     *
+     * @param int $limit
+     * @param int $offset
+     * @param string $sort
+     * @static
+     * @access public
+     * @return \SendinBlue\Client\Model\GetLists
+     */
+    public static function getLists(int $limit = 20, int $offset = 0, $sort = "desc")
+    {
+        return (new LaravelSendin)->_getLists($limit, $offset, $sort);
+    }
+
+    /**
+     * Static accesor. Returns a getList model instance
+     *
+     * @param int $listId
+     * @static
+     * @access public
+     * @return \SendinBlue\Client\Model\GetList
+     */
+    public static function getList(int $listId)
+    {
+        return (new LaravelSendin)->_getList($listId);
     }
 
     /**
@@ -17,7 +52,7 @@ class LaravelSendin extends Api
      * @access private
      * @return \SendinBlue\Client\\Model\GetAccount
      */
-    public function _getAccount()
+    private function _getAccount()
     {
         try {
             return $this->accountApi()->getAccount();
@@ -35,7 +70,7 @@ class LaravelSendin extends Api
      * @access private
      * @return \SendinBlue\Client\Model\GetLists
      */
-    public function _getLists(int $limit, int $offset, $sort = "desc")
+    private function _getLists(int $limit, int $offset, $sort = "desc")
     {
         try {
             return $this->listsApi()->getLists($limit, $offset, $sort);
@@ -51,7 +86,7 @@ class LaravelSendin extends Api
      * @access private
      * @return \SendinBlue\Client\Model\GetExtendedList
      */
-    public function _getList(int $listId)
+    private function _getList(int $listId)
     {
         try {
             return $this->listsApi()->getList($listId);
