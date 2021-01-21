@@ -4,6 +4,7 @@ namespace Danielmlozano\LaravelSendin;
 
 use GuzzleHttp\Client;
 use SendinBlue\Client\Api\AccountApi;
+use SendinBlue\Client\Api\ContactsApi;
 use SendinBlue\Client\Api\ListsApi;
 use SendinBlue\Client\Configuration;
 
@@ -57,5 +58,13 @@ class Api
     public function listsApi()
     {
         return new ListsApi($this->http, $this->config);
+    }
+
+    public function contactsApi()
+    {
+        return new ContactsApi(
+            $this->http,
+            $this->config
+        );
     }
 }
