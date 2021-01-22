@@ -92,14 +92,14 @@ class LaravelSendin extends Api
         try {
             $data = [
                 'email' => $email,
-                'listsIds' => $listsIds,
+                'listIds' => $listsIds,
                 'attributes' => (object) $attributes,
             ];
             return (new LaravelSendin)->contactsApi()->createContact(
                 new CreateContact($data)
             );
         } catch (\Exception $e) {
-            throw new SBException($e->getMessage());
+            throw new SBException($e->getMessage(), $e->getCode());
         }
     }
 }
