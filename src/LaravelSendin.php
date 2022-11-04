@@ -2,8 +2,9 @@
 
 namespace Danielmlozano\LaravelSendin;
 
-use Danielmlozano\LaravelSendin\Exceptions\SBException;
 use SendinBlue\Client\Model\CreateContact;
+use Danielmlozano\LaravelSendin\LaravelSendin;
+use Danielmlozano\LaravelSendin\Exceptions\SBException;
 
 class LaravelSendin extends Api
 {
@@ -17,7 +18,7 @@ class LaravelSendin extends Api
     public static function getAccount()
     {
         try {
-            return (new LaravelSendin)->accountApi()->getAccount();
+            return (new LaravelSendin())->accountApi()->getAccount();
         } catch (\Exception $e) {
             throw new SBException($e->getMessage());
         }
@@ -36,7 +37,7 @@ class LaravelSendin extends Api
     public static function getFolders(int $limit = 20, int $offset = 0, $sort = "desc")
     {
         try {
-            return (new LaravelSendin)->contactsApi()->getFolders($limit, $offset, $sort);
+            return (new LaravelSendin())->contactsApi()->getFolders($limit, $offset, $sort);
         } catch (\Exception $e) {
             throw new SBException($e->getMessage());
         }
@@ -56,7 +57,7 @@ class LaravelSendin extends Api
     public static function getLists(int $limit = 20, int $offset = 0, $sort = "desc")
     {
         try {
-            return (new LaravelSendin)->listsApi()->getLists($limit, $offset, $sort);
+            return (new LaravelSendin())->listsApi()->getLists($limit, $offset, $sort);
         } catch (\Exception $e) {
             throw new SBException($e->getMessage());
         }
@@ -73,7 +74,7 @@ class LaravelSendin extends Api
     public static function getList(int $listId)
     {
         try {
-            return (new LaravelSendin)->listsApi()->getList($listId);
+            return (new LaravelSendin())->listsApi()->getList($listId);
         } catch (\Exception $e) {
             throw new SBException($e->getMessage());
         }
@@ -85,9 +86,9 @@ class LaravelSendin extends Api
      * @param Array $data
      * @static
      * @access public
-     * @return void
+     * @return \SendinBlue\Client\Model\CreateContact
      */
-    public static function createContact(string $email, array $listsIds = [], array $attributes = [])
+    public static function createContact(string $email, array $listsIds = [], array $attributes = []): CreateContact
     {
         try {
             $data = [
@@ -95,7 +96,7 @@ class LaravelSendin extends Api
                 'listIds' => $listsIds,
                 'attributes' => (object) $attributes,
             ];
-            return (new LaravelSendin)->contactsApi()->createContact(
+            return (new LaravelSendin())->contactsApi()->createContact(
                 new CreateContact($data)
             );
         } catch (\Exception $e) {
